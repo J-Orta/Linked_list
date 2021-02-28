@@ -5,6 +5,9 @@ class Node {
     private Node next;
     private Node previous;
 
+    Node(int data){
+        this.Data = data;
+    }
     public int getData() {
         return Data;
     }
