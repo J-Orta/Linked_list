@@ -75,5 +75,9 @@ public class LinkedList {
                         currentNode.getNext().setPrevious(currentNode.getPrevious());
                 }
         }
+
+        public Iterator getIterator(){
+                return new Iterator(head);
+        }
 }
 
