@@ -1,6 +1,6 @@
-package Clases;
+package uaslp.ingenieria.labs;
 
-import Clases.Listas.Lista_ligada.LinkedList;
+import uaslp.ingenieria.labs.list.LinkedList;
 
 public class Main {
 

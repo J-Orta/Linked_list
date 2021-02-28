@@ -1,6 +1,4 @@
-package Clases.Listas.Lista_ligada;
-
-
+package uaslp.ingenieria.labs.list;
 
 public class LinkedList {
         private Node head;
