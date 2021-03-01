@@ -1,14 +1,10 @@
 package uaslp.ingenieria.labs.list;
 
-    public class Iterator {
+public class ReverseIterator {
     private Node currentNode;
 
-    public Iterator(Node currentNode) {
+    ReverseIterator(Node currentNode) {
         this.currentNode = currentNode;
-    }
-
-    public Iterator(Iterator iterator){
-        currentNode = iterator.currentNode;
     }
 
     public boolean hasNext(){
@@ -18,12 +14,8 @@ package uaslp.ingenieria.labs.list;
     public int next(){
         int data = currentNode.getData();
 
-        currentNode = currentNode.getNext();
+        currentNode = currentNode.getPrevious();
 
         return data;
-    }
-
-    Node getCurrentNode() {
-        return currentNode;
     }
 }
