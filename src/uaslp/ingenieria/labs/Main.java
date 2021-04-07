@@ -1,17 +1,16 @@
 package uaslp.ingenieria.labs;
 
-import uaslp.ingenieria.labs.list.LinkedList;
-import uaslp.ingenieria.labs.list.Position;
+import uaslp.ingenieria.labs.list.ArrayList;
+import uaslp.ingenieria.labs.list.Iterator;
+import uaslp.ingenieria.labs.list.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        int cuenta =  LinkedList.getListsCount();
-
-        LinkedList<Integer> lista1 = new LinkedList<>();
-        LinkedList<String> lista2 = new LinkedList<>();
-        LinkedList<Double> lista3 = new LinkedList<>();
+        List<Integer> lista1 = new ArrayList<>();
+        List<String> lista2 = new ArrayList<>();
+        List<Double> lista3 = new ArrayList<>();
 
         lista1.add(1);
         lista1.add(4);
@@ -28,28 +27,13 @@ public class Main {
         lista2.add(" Oriented ");
         lista2.add(" Programming ");
 
-        LinkedList<Integer>.Iterator it = lista1.getIterator();
-
-        while(it.hasNext()){
-            LinkedList<Integer>.Iterator backupIt = lista1.new Iterator(it);
-            int element = it.next();
-
-            if(element == 3){
-                lista1.insert(10, Position.BEFORE, backupIt);
-            }
-
-            if(element == 7){
-                lista1.insert(15, Position.AFTER, backupIt);
-            }
-        }
-
-        lista1.delete(3);
+        lista1.delete(1);
 
         System.out.println("---------------------");
 
         System.out.println("El tamaño es:" + lista1.getSize());
 
-        it = lista1.getIterator();
+        Iterator<Integer> it = lista1.getIterator();
 
         while(it.hasNext()){
             int element = it.next();
@@ -59,28 +43,13 @@ public class Main {
 
         System.out.println("---------------------");
 
-        LinkedList<Double>.Iterator itD = lista3.getIterator();
-
-        while(itD.hasNext()){
-            LinkedList<Double>.Iterator backupIt = lista3.new Iterator(itD);
-            double element = itD.next();
-
-            if(element == 3){
-                lista3.insert(10.10, Position.BEFORE, backupIt);
-            }
-
-            if(element == 7){
-                lista3.insert(15.15, Position.AFTER, backupIt);
-            }
-        }
-
-        lista3.delete(3);
+        lista3.delete(1);
 
         System.out.println("---------------------");
 
         System.out.println("El tamaño es:" + lista3.getSize());
 
-        itD = lista3.getIterator();
+        Iterator<Double> itD = lista3.getIterator();
 
         while(itD.hasNext()){
             double element = itD.next();
@@ -90,7 +59,7 @@ public class Main {
 
         System.out.println("---------------------");
 
-        LinkedList<Integer>.ReverseIterator reverseIterator = lista1.getReverseIterator();
+        Iterator<Integer> reverseIterator = lista1.getReverseIterator();
 
         while(reverseIterator.hasNext()){
             int element = reverseIterator.next();
@@ -100,21 +69,29 @@ public class Main {
 
         System.out.println("---------------------");
 
-        LinkedList<Double>.ReverseIterator reverseIteratorD = lista3.getReverseIterator();
+        Iterator<Double> reverseIteratorDouble = lista3.getReverseIterator();
 
-        while(reverseIteratorD.hasNext()){
-            double element = reverseIteratorD.next();
+        while(reverseIteratorDouble.hasNext()){
+            double element = reverseIteratorDouble.next();
 
             System.out.println("Dato: " + element);
         }
 
         System.out.println("---------------------");
 
-        LinkedList<String>.Iterator itStrings = lista2.getIterator();
+        Iterator<String> itStrings = lista2.getIterator();
 
-        while(itStrings.hasNext()){
+        while(itStrings.hasNext()) {
             System.out.println(itStrings.next());
         }
+
+        System.out.println("---------------------");
+        System.out.println("Get with index = 3");
+
+        System.out.println(lista1.get(3));
+        System.out.println(lista3.get(3));
+        System.out.println(lista2.get(3));
+
     }
 }
 

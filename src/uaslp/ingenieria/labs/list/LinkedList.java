@@ -3,7 +3,7 @@ package uaslp.ingenieria.labs.list;
 import static uaslp.ingenieria.labs.list.Position.AFTER;
 import static uaslp.ingenieria.labs.list.Position.BEFORE;
 
-public class LinkedList <G> {
+public class LinkedList <G> implements List<G> {
 
         private static class Node <T> {
 
@@ -28,16 +28,16 @@ public class LinkedList <G> {
 
         public static int getListsCount() { return listsCount;}
 
-        public class Iterator{
+        public class ForwardIterator implements Iterator <G> {
 
                 private Node<G> currentNode;
 
-                public Iterator(){
+                public ForwardIterator(){
                         this.currentNode = head;
                 }
 
-                public Iterator(Iterator iterator){
-                        this.currentNode = iterator.currentNode;
+                public ForwardIterator(ForwardIterator forwardIterator){
+                        this.currentNode = forwardIterator.currentNode;
                 }
 
                 public boolean hasNext(){
@@ -55,7 +55,7 @@ public class LinkedList <G> {
                 Node<G> getCurrentNode(){ return currentNode;}
         }
 
-        public class ReverseIterator {
+        public class ReverseIterator implements Iterator<G> {
 
                 private Node<G> currentNode;
 
@@ -77,6 +77,12 @@ public class LinkedList <G> {
                 }
         }
 
+        @Override
+        public int getSize() {
+                return size;
+        }
+
+        @Override
         public void add(G data) {
                 Node<G> node = new Node<>(data);
 
@@ -94,6 +100,7 @@ public class LinkedList <G> {
                 size++;
         }
 
+        @Override
         public G get(int index) {
                 Node<G> currentNode = head;
                 int currentIndex = 0;
@@ -106,6 +113,7 @@ public class LinkedList <G> {
                 return currentNode.data;
         }
 
+        @Override
         public void delete(int index) {
                 Node<G> currentNode = head;
                 int currentIndex = 0;
@@ -144,18 +152,21 @@ public class LinkedList <G> {
 
         }
 
-        public Iterator getIterator() {
-                return new Iterator();
+        @Override
+        public Iterator<G> getIterator() {
+                return new ForwardIterator();
         }
 
+        @Override
         public ReverseIterator getReverseIterator() {
                 return new ReverseIterator();
         }
 
-        public void insert(G data, Position position, Iterator it) {
+        @Override
+        public void insert(G data, Position position, Iterator<G> it) {
 
                 Node<G> newNode = new Node<>(data);
-                Node<G> currentNode = it.getCurrentNode();
+                Node<G> currentNode = ((ForwardIterator)it).getCurrentNode();
 
                 if (position == AFTER) {
                         newNode.next = currentNode.next;
@@ -180,10 +191,5 @@ public class LinkedList <G> {
                 }
                 size++;
         }
-
-        public int getSize() {
-                return size;
-        }
-
 }
 
