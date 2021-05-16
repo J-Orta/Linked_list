@@ -1,8 +1,5 @@
 package uaslp.ingenieria.labs.list;
 
-import static uaslp.ingenieria.labs.list.Position.AFTER;
-import static uaslp.ingenieria.labs.list.Position.BEFORE;
-
 public class LinkedList <G> implements List<G> {
 
         private static class Node <T> {
@@ -20,13 +17,15 @@ public class LinkedList <G> implements List<G> {
         private Node<G> tail;
         private int size;
 
+        private static int listsCount=0;
+
         public LinkedList(){
                 listsCount++;
         }
 
-        private static int listsCount = 0;
-
         public static int getListsCount() { return listsCount;}
+
+        public static void setListCount(int data) {listsCount = data;}
 
         public class ForwardIterator implements Iterator <G> {
 
@@ -34,10 +33,6 @@ public class LinkedList <G> implements List<G> {
 
                 public ForwardIterator(){
                         this.currentNode = head;
-                }
-
-                public ForwardIterator(ForwardIterator forwardIterator){
-                        this.currentNode = forwardIterator.currentNode;
                 }
 
                 public boolean hasNext(){
@@ -51,8 +46,6 @@ public class LinkedList <G> implements List<G> {
 
                         return data;
                 }
-
-                Node<G> getCurrentNode(){ return currentNode;}
         }
 
         public class ReverseIterator implements Iterator<G> {
@@ -101,26 +94,37 @@ public class LinkedList <G> implements List<G> {
         }
 
         @Override
-        public G get(int index) {
+        public G get(int index) throws MyNullPointerException{
+
+                if(head == null){
+                        throw new MyNullPointerException();
+                }
+
                 Node<G> currentNode = head;
                 int currentIndex = 0;
 
                 while (currentIndex < index) {
                         currentNode = currentNode.next;
+
                         currentIndex++;
+                }
+
+                if(currentNode == null){
+                        throw new MyNullPointerException();
                 }
 
                 return currentNode.data;
         }
 
         @Override
-        public void delete(int index) {
+        public void delete(int index) throws MyNullPointerException {
+
+                if (head == null) {
+                        throw new MyNullPointerException();
+                }
+
                 Node<G> currentNode = head;
                 int currentIndex = 0;
-
-                if (index < 0 || index >= size) {
-                        return;
-                }
 
                 size--;
 
@@ -145,6 +149,10 @@ public class LinkedList <G> implements List<G> {
                                 currentNode = currentNode.next;
                                 currentIndex++;
                         }
+
+                        if(currentNode == null){
+                                throw new MyNullPointerException();
+                        }
                         currentNode.previous.next = currentNode.next;
                         currentNode.next.previous = currentNode.previous;
                 }
@@ -162,34 +170,5 @@ public class LinkedList <G> implements List<G> {
                 return new ReverseIterator();
         }
 
-        @Override
-        public void insert(G data, Position position, Iterator<G> it) {
-
-                Node<G> newNode = new Node<>(data);
-                Node<G> currentNode = ((ForwardIterator)it).getCurrentNode();
-
-                if (position == AFTER) {
-                        newNode.next = currentNode.next;
-                        newNode.previous = currentNode;
-                        currentNode.next = newNode;
-                        if (newNode.next != null) {
-                                newNode.next.previous = newNode;
-                        } else {
-                                tail = newNode;
-                        }
-                } else if (position == BEFORE) {
-                        newNode.previous = currentNode.previous;
-                        newNode.next = currentNode;
-                        currentNode.previous = newNode;
-                        if (newNode.previous != null) {
-                                newNode.previous.next = newNode;
-                        } else {
-                                head = newNode;
-                        }
-                } else {
-                        System.out.println("No conozco el valor de position");
-                }
-                size++;
-        }
 }
 

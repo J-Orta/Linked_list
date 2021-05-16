@@ -1,14 +1,12 @@
 package uaslp.ingenieria.labs;
 
-import uaslp.ingenieria.labs.list.ArrayList;
-import uaslp.ingenieria.labs.list.Iterator;
-import uaslp.ingenieria.labs.list.List;
+import uaslp.ingenieria.labs.list.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        List<Integer> lista1 = new ArrayList<>();
+        List<Integer> lista1 = new LinkedList <>();
         List<String> lista2 = new ArrayList<>();
         List<Double> lista3 = new ArrayList<>();
 
@@ -26,8 +24,6 @@ public class Main {
         lista2.add(" Object ");
         lista2.add(" Oriented ");
         lista2.add(" Programming ");
-
-        lista1.delete(1);
 
         System.out.println("---------------------");
 

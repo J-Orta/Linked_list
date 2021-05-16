@@ -12,25 +12,31 @@ public class ArrayList <H> implements List <H>{
 
     @Override
     public void add(H data) {
-        if(size < arrayData.length){
-            arrayData[size++] = data;
-        }else{
-            Object arrayAux[] = new Object[arrayData.length*2];
+        if (size >= arrayData.length) {
+            Object arrayAux[] = new Object[arrayData.length * 2];
             System.arraycopy(arrayData, 0, arrayAux, 0, arrayData.length);
             arrayData = arrayAux;
-            arrayData[size++] = data;
         }
+        arrayData[size++] = data;
     }
 
     @Override
-    public H get(int index) {
+    public H get(int index) throws MyIndexOutOfBoundsException{
+
+        if(index > size || index < 0) {
+            throw new MyIndexOutOfBoundsException();
+        }
+
         return (H) arrayData[index];
     }
 
     @Override
-    public void delete(int index) {
-        for(int i = index + 1; i < size ; i++ ){
-           arrayData[i-1] = arrayData [i];
+    public void delete(int index) throws MyIndexOutOfBoundsException {
+
+        if(arrayData.length - (index+1) >= 0) {
+            System.arraycopy(this.arrayData,index+1,this.arrayData,index+1-1,arrayData.length-(index+1));
+        }else {
+            throw new MyIndexOutOfBoundsException();
         }
         size--;
     }
@@ -48,11 +54,6 @@ public class ArrayList <H> implements List <H>{
     @Override
     public Iterator<H> getReverseIterator() {
         return new ReverseIterator();
-    }
-
-    @Override
-    public void insert(H data, Position position, Iterator<H> it) {
-
     }
 
     public class ForwardIterator implements Iterator <H> {
